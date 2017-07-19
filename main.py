@@ -59,7 +59,7 @@ rooms = ["Seminarraum 00.200",
 matrix = [["<td bgcolor=#00e64d></td>"]*14 for i in range(len(rooms)+1)]
 
 for i in range(1, 14):
-    matrix[0][i] = "<th>" + str(8+i) + "</th>"
+    matrix[0][i] = "<th class=\"hidden1\">" + str(8+i) + "</th>"
 
 for i in range(1, len(matrix)):
     matrix[i][0] = "<td><b>" + rooms[i-1] + "</b></td>"
@@ -101,7 +101,8 @@ def regenEntries():
     for i in range(len(rooms) - 1):
         for event in entries:
             if event["location"] == rooms[i] and event["begin"] > 7:
-                matrix[i + 1][event["begin"] - 8] = "<td colspan=" + str(event["end"] - event["begin"]) + ">" + event[
+                if event["begin"] == 8: event["begin"] = 9  # display only events from 9 am
+                matrix[i + 1][event["begin"] - 8] = "<td class=\"hidden1\" colspan=" + str(event["end"] - event["begin"]) + ">" + event[
                     "summary"] + "</td>"
                 for j in range(0, (event["end"] - event["begin"] - 1)):
                     matrix[i + 1][event["begin"] - 8 + j + 1] = ""
